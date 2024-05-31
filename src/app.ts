@@ -47,7 +47,7 @@ class App {
     public listen() {
         const port = process.env.PORT
         this.app.listen(port, () => {
-            console.log(`Auction Api service is running on port ${port}`);
+            console.log(`Server actively eavesdropping 👂 👂 👂 👂 @port ${port}`);
 
         })
     }
