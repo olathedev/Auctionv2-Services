@@ -1,5 +1,5 @@
-import { propertyStatus } from "@/utils/enums";
-import IProperty from "@/utils/types/property.type";
+import { propertyStatus } from "../utils/enums";
+import IProperty from "../utils/types/property.type";
 import mongoose from "mongoose";
 
 const PropertySchema = new mongoose.Schema<IProperty>({

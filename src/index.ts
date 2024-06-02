@@ -1,9 +1,11 @@
-import App from 'app'
+import App from './app'
 import 'dotenv/config'
-import 'module-alias/register'
-import { Enviroment } from '@/utils/config/env.config'
+import PropertyController from './controllers/property.controller'
+import { Enviroment } from './utils/config/env.config'
 
 
-const app = new App([], Enviroment.APP.PORT)
+const app = new App([new PropertyController()], Enviroment.APP.PORT)
+
+
 
 app.listen()
