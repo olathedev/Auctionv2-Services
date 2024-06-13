@@ -40,7 +40,10 @@ class PropertyService {
     public async update(id: string, payload: IGetProperties) {
         const isProperty = await this.property.findOne({ _id: id })
         if(!isProperty) return new HttpException(400, "No property found with this id")
-        const property = await this.property.findOneAndUpdate({ _id: id}, payload)
+        const property = await this.property.findOneAndUpdate({ _id: id}, payload, {
+            new: true,
+            runValidators: true
+        })
         return ResponseUtils.buildResponse({
             data: property
         })

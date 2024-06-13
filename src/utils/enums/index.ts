@@ -6,5 +6,11 @@ export enum NODE_ENV {
 export enum propertyStatus {
     AVAILABLE="available",
     PENDING="pending",
-    SOLD="sold"
+    TAKEN="taken"
+}
+
+export enum Role {
+    TENANT="tenant",
+    LANDLORD="landlord",
+    ADMIN="admin"
 }
