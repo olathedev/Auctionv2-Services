@@ -1,9 +1,11 @@
 import ResponseUtils from "../utils/response.utils";
-import IProperty from "../utils/types/property.type";
+import IProperty, { IGetProperties } from "../utils/types/property.type";
 import propertyModel from "../models/property.model";
+import HttpException from "../utils/exceptions/http.exceptions";
 
-class  PropertyService {
+class PropertyService {
     private property = propertyModel
+    
 
     public async create(payload: IProperty) {
         try {
@@ -18,18 +20,42 @@ class  PropertyService {
     }
 
     public async getAll() {
-        try {
-          const property = await this.property.find()
-          return ResponseUtils.buildResponse({
+        const property = await this.property.find()
+        return ResponseUtils.buildResponse({
             data: property,
             count: property.length
-          })
-        } catch (error) {
-            throw new Error("unable to get Properties")
-        }
+        })
     }
 
-    
+    public async getSingle(query: IGetProperties) {
+        const property = await this.property.findOne(query)
+        if (!property) {
+            return new HttpException(400, "No property found with this ID")
+        }
+        return ResponseUtils.buildResponse({
+            data: property
+        })
+    }
+
+    public async update(id: string, payload: IGetProperties) {
+        const isProperty = await this.property.findOne({ _id: id })
+        if(!isProperty) return new HttpException(400, "No property found with this id")
+        const property = await this.property.findOneAndUpdate({ _id: id}, payload)
+        return ResponseUtils.buildResponse({
+            data: property
+        })
+    }
+
+    public async delete(id: string) {
+        const isProperty = await this.property.findOne({ _id: id })
+        if(!isProperty) return new HttpException(400, "No property found with this id")
+        const property = await this.property.findOneAndDelete({ _id: id})
+        return ResponseUtils.buildResponse({
+            data: property
+        })
+    }
+
+
 }
 
-export default new PropertyService()
+export default PropertyService

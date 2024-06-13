@@ -39,6 +39,7 @@ const PropertySchema = new mongoose.Schema<IProperty>({
         type: Number,
         required: true
     },
+    
     yearBuilt: {
         type: Number,
         required: true

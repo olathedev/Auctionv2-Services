@@ -48,7 +48,6 @@ class App {
 
     public listen() {
         const port = process.env.PORT
-        console.log(Enviroment.DB.MONGO_URI)
         this.app.listen(port, () => {
             connectDb()
             console.log(`Server actively eavesdropping 👂 👂 👂 👂 @port ${port}`);

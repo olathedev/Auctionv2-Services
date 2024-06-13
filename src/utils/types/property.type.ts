@@ -23,3 +23,22 @@ export default interface IProperty extends Document {
     createdBy:Types.ObjectId
   }
   
+
+  export interface IGetProperties {
+    id?: string;
+    title?: string;
+    description?: string;
+    price?: number;
+    address?: {
+      street?: string;
+      city?: string;
+      state?: string;
+      zip?: string;
+    };
+    size?: number; // in square feet
+    bedrooms?: number;
+    bathrooms?: number;
+    yearBuilt?: number;
+    type?: string;
+    status?: string;
+  }
