@@ -8,5 +8,10 @@ export const Enviroment: IEnviroment = {
 
         DB: {
             MONGO_URI: process.env.MONGO_URI!   
+        },
+        
+        MAILING: {
+            SENDGRID_API_KEY: process.env.SENDGRID_API_KEY!,
+            SENDGRID_FROM: process.env.SENDGRID_FROM!
         }
 }

@@ -1,5 +1,5 @@
-import { Role } from "@/utils/enums";
-import { IUser } from "@/utils/types/user.types";
+import { Role } from "../utils/enums";
+import { IUser } from "../utils/types/user.types";
 import mongoose, { Schema } from "mongoose";
 
 

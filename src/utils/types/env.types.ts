@@ -7,6 +7,11 @@ export interface IEnviroment {
 
     DB: {
         MONGO_URI: string
+    },
+
+    MAILING: {
+        SENDGRID_API_KEY: string;
+        SENDGRID_FROM: string;
     }
 
 }

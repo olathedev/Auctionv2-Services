@@ -7,7 +7,10 @@ const userValidationSchema = Joi.object({
     email: Joi.string().email().required(),
     phoneNumber: Joi.number().optional(),
     password: Joi.string().required(),
-    image: Joi.string().uri().required(),
+    profileImage: Joi.string().uri().required(),
     role: Joi.string().valid(...Object.values(Role)).default(Role.TENANT),
     verificationToken: Joi.string().optional(),
  })
+
+
+ export default userValidationSchema

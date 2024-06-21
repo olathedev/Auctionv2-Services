@@ -1,10 +1,10 @@
-import Bcrypt from "@/utils/bcrypt.utils";
-import HttpException from "@/utils/exceptions/http.exceptions";
-import responseUtils from "@/utils/response.utils";
-import { IUser } from "@/utils/types/user.types";
-import userModel from "models/user.model";
+import Bcrypt from "../utils/bcrypt.utils";
+import HttpException from "../utils/exceptions/http.exceptions";
+import responseUtils from "../utils/response.utils";
+import { IUser } from "../utils/types/user.types";
+import userModel from "../models/user.model";
 
-export class userService {
+class userService {
 
     private UserModel = userModel
     private Bcrypt = new Bcrypt()
@@ -34,6 +34,7 @@ export class userService {
         }
 
         const hashedPassword = await this.Bcrypt.hashPassword(hashPayload)
+
         payload.password = hashedPassword
 
         const verificationToken = '1234qw'
@@ -41,12 +42,13 @@ export class userService {
 
         const user = await this.UserModel.create(payload)
         
-        
         return responseUtils.buildResponse({
             message: "user created successfully",
-            data: user
+            data: user,
         })
-
     }
+
+    
 }
 
+export default new userService()

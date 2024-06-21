@@ -22,6 +22,7 @@ const validationMiddleware = (schema: Joi.Schema): RequestHandler => {
 
             res.status(400).json({
                 status: "Failure",
+                message: "Please provide value for all fields",
                 errors: errors
             })
         }
