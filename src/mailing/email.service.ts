@@ -3,6 +3,7 @@ import { IEmailObject } from "utils/types/email.types"
 import sg, { MailDataRequired } from "@sendgrid/mail"
 import path from "path"
 import fs from 'fs'
+import { IUser } from "utils/types/user.types"
 
 class EmailService {
     private apiKey: string
