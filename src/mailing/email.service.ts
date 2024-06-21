@@ -1,9 +1,9 @@
-import { Enviroment } from "utils/config/env.config"
-import { IEmailObject } from "utils/types/email.types"
+import { Enviroment } from "../utils/config/env.config"
+import { IEmailObject } from "../utils/types/email.types"
 import sg, { MailDataRequired } from "@sendgrid/mail"
 import path from "path"
-import fs from 'fs'
-import { IUser } from "utils/types/user.types"
+import * as fs from 'fs'
+import { IUser } from "../utils/types/user.types"
 
 class EmailService {
     private apiKey: string
@@ -16,9 +16,10 @@ class EmailService {
     }
 
     public async send(mailObj: IEmailObject, user: IUser) {
+        mailObj.to = user.email
         mailObj.from = this.from
         const sgResponse = await sg.send(<MailDataRequired>mailObj, false)
-        console.log(sgResponse)
+        console.log(`email successfully sent to ${user.email}`)
         return sgResponse
     }
 
@@ -27,6 +28,18 @@ class EmailService {
         const html = fs.readFileSync(tempPath, "utf8")
         console.log(tempPath)
         return html
+    }
+
+    public async sendVerificationEmail(user: IUser) {
+        const html = await this.getEmailTemplate("signup")
+        const mailObj: IEmailObject = {
+            to: user.email,
+            from: this.from,
+            subject: "Verify your email",
+            html
+        }
+
+        return this.send(mailObj, user)
     }
 }
 

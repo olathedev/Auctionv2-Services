@@ -8,8 +8,9 @@ const errorHandler = (error: HttpException, req: Request, res: Response, next: N
 
 
     res.status(statusCode).json({
+        message,
         status: error.status,
-        message
+        statusCode
     })
 
 

@@ -3,6 +3,8 @@ import HttpException from "../utils/exceptions/http.exceptions";
 import responseUtils from "../utils/response.utils";
 import { IUser } from "../utils/types/user.types";
 import userModel from "../models/user.model";
+import emailService from "../mailing/email.service";
+import generateRandomString from "../utils/generateRandomString";
 
 class userService {
 
@@ -11,6 +13,7 @@ class userService {
     constructor() { }
 
     public async signup(payload: IUser) {
+
         let {
             firstname,
             lastname,
@@ -18,14 +21,14 @@ class userService {
             password
         } = payload
 
-        if (!firstname || !lastname || !email || !password) return new HttpException(400, "Incomplete Signup data")
+        if (!firstname || !lastname || !email || !password) throw new HttpException(400, "Incomplete Signup data")
 
         const userRegistered = await this.UserModel.findOne({
             email: email
         })
 
         if (userRegistered) {
-            return new HttpException(400, "Email already exists")
+            throw new HttpException(400, "Email already exists")
         }
 
         const hashPayload = {
@@ -37,10 +40,14 @@ class userService {
 
         payload.password = hashedPassword
 
-        const verificationToken = '1234qw'
+        const verificationToken = generateRandomString()
         payload.verificationToken = verificationToken
 
         const user = await this.UserModel.create(payload)
+
+        const mail = await emailService.sendVerificationEmail(user)
+
+        console.log(mail)
         
         return responseUtils.buildResponse({
             message: "user created successfully",
@@ -48,7 +55,11 @@ class userService {
         })
     }
 
-    
+    public async signin(payload: IUser) {
+
+    }
+
+
 }
 
 export default new userService()

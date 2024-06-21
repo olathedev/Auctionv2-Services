@@ -37,8 +37,8 @@ class AuthController implements Controller {
         next: NextFunction
     ) {
         try {
-            const data = await userService.signup(req.body) 
-            return res.status(201).json(data)
+            const data = await userService.signup(req.body)
+             res.status(201).json(data)
         } catch (error: any) {
             next(new HttpException(error.statusCode, error.message))
         }
